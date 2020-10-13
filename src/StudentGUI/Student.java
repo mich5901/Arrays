@@ -3,58 +3,61 @@ package StudentGUI;
 public class Student {
 
     private String name;
-    private int test[] = new int[3];
+    private int[] marks = new int[3];
 
-    public Student(String nm, int t[]) {
+    public Student(String nm, int m[]) {
         name = nm;
-        test = t;
+        marks = m;
     }
 
-    public Student(Student other) {
-        this(other.name, other.test);
+    public Student(Student s) {
+        this(s.name, s.marks);
     }
 
     public void setName(String nm) {
         name = nm;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setScore(int i, int score) {
-        test[i - 1] = score;
-    }
-
-    public int getScore(int i) {
-        return test[i - 1];
+    public void setMark(int whichmark, int number) {
+        marks[number - 1] = whichmark;
     }
 
     public int getAverage() {
-        int average; //local variable
-        average = (test[0] + test[1] + test[2] / 3);
+        int average = (marks[0] + marks[1] + marks[2 / 3]);
         return average;
     }
-
-    public String toString() {
-        String str;
-        str = ("Name:\t\t" + name + "\n");
-        str += "" + getAverage();
-        return str;
+    
+    public int getMark(int whichmark){
+        return marks[whichmark-1];
     }
-
-    public String validateData() {
-        String errormessage = null;
-        if (name.length() < 2) {
-            errormessage = "Name is required.";
-        }
-        if (test[0] < 0 || test[0] > 100 || test[1] < 0 || test[1] > 100 || test[2] < 0 || test[2] > 100 ||) {
-            errormessage += ("At least one mar is not within the acceptable range.");
-        }
-        if (errormessage != null) {
-            errormessage += ("\nPlease re-enter all the data.");
-        }
-        return errormessage;
+    
+    public int getHighscore(){
+        int high = marks[0];
+        high = Math.max(high, marks[1]);
+        high = Math.max(high, marks[2]);
+        return high;
+    }
+    
+    public String toString(){
+        String result = "Name: " + name;
+        result += "\nMark 1:\t" + marks[0];
+        result += "\nMark 2:\t" + marks[1];
+        result += "\nMark 3:\t" + marks[2];
+        result += "\nAverage:\t" + getAverage();
+        return result;
+    }
+    
+    public String getName(){
+        return name;
+    }
+    public String validateDate(){
+        String message = null;
+        if(name.equals(""))
+            message += "\nName is required.\nPlease re-enter all data.";
+        
+        if(marks[0] < 0 || marks[0] > 100|| marks[1] < 0 || marks[1] > 100 || marks[2] < 0 || marks[2] > 100)
+            message += "\nAt least one mark is out of range, please re-enter all data.";
+        return message;
     }
 
 }
